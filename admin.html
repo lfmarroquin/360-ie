@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin 360 - Inteligencia Emocional</title>
+<style>
+:root{--navy:#1a2744;--gold:#C9A84C;--gold-light:#F5E6C0;--bg:#F7F8FA;--white:#ffffff;--text:#1a2744;--text-soft:#5a6580;--border:#e2e6ef;--radius:12px;--shadow:0 2px 12px rgba(26,39,68,0.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.header{background:var(--navy);padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
+.header h1{color:var(--gold);font-size:16px;font-weight:600;letter-spacing:.5px}
+.header p{color:rgba(255,255,255,0.6);font-size:12px;margin-top:2px}
+.badge{background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.main{max-width:900px;margin:0 auto;padding:24px 20px}
+.section-title{font-size:14px;font-weight:500;color:var(--text-soft);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.card{background:var(--white);border-radius:var(--radius);border:0.5px solid var(--border);padding:20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:12px;font-weight:500;color:var(--text-soft)}
+.form-group input{padding:9px 12px;border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--text);background:var(--white);outline:none;transition:border .15s}
+.form-group input:focus{border-color:var(--navy)}
+.btn{padding:10px 20px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-primary{background:var(--navy);color:var(--white)}
+.btn-primary:hover{background:#253660}
+.btn-primary:disabled{background:var(--border);color:var(--text-soft);cursor:not-allowed}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:#b8943d}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:6px}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-soft)}
+.btn-outline:hover{border-color:var(--navy);color:var(--navy)}
+.msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
+.msg.ok{background:#E1F5EE;color:#085041}
+.msg.err{background:#FAECE7;color:#993C1D}
+.loading-wrap{text-align:center;padding:40px;color:var(--text-soft);font-size:13px}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.search-bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:9px 12px 9px 36px;border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--text);background:var(--white);outline:none;transition:border .15s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a6580' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:10px center}
+.search-input:focus{border-color:var(--navy)}
+.search-count{font-size:12px;color:var(--text-soft);white-space:nowrap}
+.lideres-grid{display:flex;flex-direction:column;gap:10px}
+.lider-row{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+.lider-row.hidden{display:none}
+.lider-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lider-info .nombre{font-size:15px;font-weight:500;color:var(--text)}
+.lider-info .nombre mark{background:var(--gold-light);color:var(--navy);border-radius:3px;padding:0 2px}
+.lider-info .sub{font-size:12px;color:var(--text-soft);margin-top:2px}
+.lider-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.stat-pill{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
+.pill-0{background:#F1EFE8;color:#5F5E5A}
+.pill-some{background:#E1F5EE;color:#085041}
+.link-box{margin-top:12px;display:none;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.link-box .link-label{font-size:11px;color:var(--text-soft);margin-bottom:5px}
+.link-box .link-text{font-size:12px;color:var(--navy);word-break:break-all;margin-bottom:8px}
+.link-box .link-btns{display:flex;gap:6px;flex-wrap:wrap}
+.no-results{text-align:center;padding:30px;color:var(--text-soft);font-size:13px;display:none}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--white);border-radius:var(--radius);padding:24px;width:100%;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.18);max-height:90vh;overflow-y:auto}
+.modal h3{font-size:17px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.modal-stat{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
+.modal-stat .val{font-size:20px;font-weight:500;color:var(--navy)}
+.modal-stat .val.sm{font-size:14px;margin-top:4px}
+.modal-stat .lbl{font-size:11px;color:var(--text-soft);margin-top:2px}
+.modal-radar{position:relative;width:100%;height:260px;margin-bottom:16px}
+.dim-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.dim-bar-row{display:flex;align-items:center;gap:8px}
+.dim-bar-label{font-size:12px;color:var(--text-soft);width:130px;flex-shrink:0}
+.dim-bar-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.dim-bar-fill{height:100%;background:var(--navy);border-radius:4px;transition:width .6s}
+.dim-bar-val{font-size:12px;font-weight:500;color:var(--navy);width:28px;text-align:right;flex-shrink:0}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+.por-nivel{margin-bottom:16px}
+.por-nivel .nivel-title{font-size:12px;font-weight:500;color:var(--text-soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px}
+.nivel-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.nivel-item{background:var(--bg);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center}
+.nivel-item .nlbl{font-size:12px;color:var(--text-soft)}
+.nivel-item .nval{font-size:14px;font-weight:500;color:var(--navy)}
+.nval.empty{color:var(--border);font-size:12px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}.lider-top{flex-direction:column;align-items:flex-start}.modal-stats{grid-template-columns:1fr 1fr}.nivel-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>Panel de Administrador · 360 IE</h1>
+    <p>Gestion de lideres y evaluaciones</p>
+  </div>
+  <span class="badge">ADMIN</span>
+</div>
+
+<div class="main">
+  <div class="section-title">Registrar nuevo lider</div>
+  <div class="card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input type="text" id="inp-nombre" placeholder="Ej. Juan Perez">
+      </div>
+      <div class="form-group">
+        <label>Correo electronico *</label>
+        <input type="email" id="inp-email" placeholder="juan@empresa.com">
+      </div>
+      <div class="form-group full">
+        <label>Empresa / Organizacion</label>
+        <input type="text" id="inp-empresa" placeholder="Ej. Empresa Guatemala S.A.">
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-primary" id="btn-registrar" onclick="registrarLider()">Registrar lider</button>
+      <div class="msg" id="msg-registro"></div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div class="section-title" style="margin-bottom:0">Lideres registrados</div>
+    <button class="btn btn-outline btn-sm" onclick="cargarLideres()">Actualizar lista</button>
+  </div>
+
+  <div class="search-bar">
+    <input class="search-input" type="text" id="buscador" placeholder="Buscar por nombre o empresa..." oninput="filtrarLideres()" autocomplete="off">
+    <span class="search-count" id="search-count"></span>
+  </div>
+
+  <div id="lideres-wrap">
+    <div class="loading-wrap"><div class="spinner"></div><p>Cargando lideres...</p></div>
+  </div>
+  <div class="no-results" id="no-results">No se encontraron lideres con ese criterio.</div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="cerrarModalClick(event)">
+  <div class="modal">
+    <h3 id="modal-nombre">Cargando...</h3>
+    <p id="modal-empresa" style="font-size:12px;color:var(--text-soft);margin-bottom:12px"></p>
+    <div id="modal-body">
+      <div class="loading-wrap"><div class="spinner"></div><p>Cargando datos...</p></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="cerrarModal()">Cerrar</button>
+      <button class="btn btn-gold btn-sm" onclick="abrirReporte()">Ver reporte completo</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+var SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbzJ5lxZoHzDOjdQ4rYdSehmNQ6f6BA8qo30aiQGbE_oI756hHXk2MVfqqOkA6Pna3zF/exec';
+var BASE_URL     = 'https://lfmarroquin.github.io/360-ie/';
+var lideres      = [];
+var radarChart   = null;
+var modalLiderId = '';
+var cbCount      = 0;
+
+function jsonp(params, callback) {
+  var cbName = 'cb' + (++cbCount);
+  var url = SCRIPT_URL + '?' + params + '&callback=' + cbName;
+  window[cbName] = function(data) {
+    delete window[cbName];
+    document.head.removeChild(script);
+    callback(data);
+  };
+  var script = document.createElement('script');
+  script.src = url;
+  script.onerror = function() {
+    delete window[cbName];
+    document.head.removeChild(script);
+    callback(null);
+  };
+  document.head.appendChild(script);
+}
+
+window.onload = function() { cargarLideres(); };
+
+function cargarLideres() {
+  document.getElementById('lideres-wrap').innerHTML = '<div class="loading-wrap"><div class="spinner"></div><p>Cargando lideres...</p></div>';
+  document.getElementById('buscador').value = '';
+  document.getElementById('search-count').textContent = '';
+  jsonp('action=listarLideres', function(data) {
+    if (!data || !data.ok) { mostrarErrorWrap('Error al cargar lideres.'); return; }
+    lideres = data.lideres;
+    renderLideres();
+  });
+}
+
+function renderLideres() {
+  var wrap = document.getElementById('lideres-wrap');
+  if (lideres.length === 0) {
+    wrap.innerHTML = '<div class="loading-wrap"><p>No hay lideres registrados aun.</p></div>';
+    document.getElementById('search-count').textContent = '';
+    return;
+  }
+  var html = '<div class="lideres-grid">';
+  lideres.forEach(function(l, i) {
+    var n = parseInt(l.n_respuestas) || 0;
+    var pillClass = n === 0 ? 'pill-0' : 'pill-some';
+    var pillText  = n === 0 ? 'Sin respuestas' : n + ' respuesta' + (n !== 1 ? 's' : '');
+    html += '<div class="lider-row" id="row-' + i + '" data-nombre="' + escData(l.nombre) + '" data-empresa="' + escData(l.empresa || '') + '">';
+    html += '<div class="lider-top">';
+    html += '<div class="lider-info">';
+    html += '<div class="nombre" id="nombre-' + i + '">' + escHtml(l.nombre) + '</div>';
+    html += '<div class="sub">' + escHtml(l.email) + (l.empresa ? ' - ' + escHtml(l.empresa) : '') + ' - ID: ' + l.lider_id + '</div>';
+    html += '</div>';
+    html += '<div class="lider-actions">';
+    html += '<span class="stat-pill ' + pillClass + '">' + pillText + '</span>';
+    html += '<button class="btn btn-outline btn-sm" onclick="toggleLink(' + i + ')">Ver link</button>';
+    if (n > 0) {
+      html += '<button class="btn btn-gold btn-sm" onclick="abrirResumen(\'' + l.lider_id + '\',\'' + escAttr(l.nombre) + '\',\'' + escAttr(l.empresa || '') + '\')">Ver resumen</button>';
+    }
+    html += '</div></div>';
+    html += '<div class="link-box" id="link-' + i + '">';
+    html += '<div class="link-label">Link de evaluacion:</div>';
+    var link = BASE_URL + 'evaluacion.html?lid=' + l.lider_id;
+    html += '<div class="link-text" id="link-text-' + i + '">' + link + '</div>';
+    html += '<div class="link-btns">';
+    html += '<button class="btn btn-primary btn-sm" onclick="copiarLink(' + i + ')">Copiar link</button>';
+    html += '<button class="btn btn-outline btn-sm" onclick="window.open(document.getElementById(\'link-text-\'+' + i + ').textContent,\'_blank\')">Abrir</button>';
+    html += '</div></div></div>';
+  });
+  html += '</div>';
+  wrap.innerHTML = html;
+  actualizarConteo(lideres.length, lideres.length);
+}
+
+function filtrarLideres() {
+  var q = document.getElementById('buscador').value.toLowerCase().trim();
+  var filas = document.querySelectorAll('.lider-row');
+  var visibles = 0;
+  filas.forEach(function(row, i) {
+    var nombre  = (row.getAttribute('data-nombre') || '').toLowerCase();
+    var empresa = (row.getAttribute('data-empresa') || '').toLowerCase();
+    var ok = !q || nombre.includes(q) || empresa.includes(q);
+    row.classList.toggle('hidden', !ok);
+    if (ok) {
+      visibles++;
+      var el = document.getElementById('nombre-' + i);
+      if (el && q) {
+        var regex = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+        el.innerHTML = lideres[i].nombre.replace(regex, '<mark>$1</mark>');
+      } else if (el) {
+        el.textContent = lideres[i].nombre;
+      }
+    }
+  });
+  document.getElementById('no-results').style.display = visibles === 0 && q ? 'block' : 'none';
+  actualizarConteo(visibles, lideres.length);
+}
+
+function actualizarConteo(v, t) {
+  var el = document.getElementById('search-count');
+  el.textContent = t === 0 ? '' : (v === t ? t + ' lideres' : v + ' de ' + t);
+}
+
+function toggleLink(i) {
+  var box = document.getElementById('link-' + i);
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+function copiarLink(i) {
+  var text = document.getElementById('link-text-' + i).textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function(){ alert('Link copiado.'); }).catch(function(){ prompt('Copia:', text); });
+  } else { prompt('Copia:', text); }
+}
+
+function abrirReporte() {
+  window.open(BASE_URL + 'reporte.html?lid=' + modalLiderId, '_blank');
+}
+
+function abrirResumen(lid, nombre, empresa) {
+  modalLiderId = lid;
+  document.getElementById('modal-nombre').textContent = nombre;
+  document.getElementById('modal-empresa').textContent = empresa || '';
+  document.getElementById('modal-body').innerHTML = '<div class="loading-wrap"><div class="spinner"></div><p>Cargando...</p></div>';
+  document.getElementById('modal-overlay').classList.add('active');
+  if (radarChart) { radarChart.destroy(); radarChart = null; }
+  jsonp('action=getResumen&lid=' + lid, function(data) {
+    if (!data || !data.ok) {
+      document.getElementById('modal-body').innerHTML = '<p style="color:#993C1D;font-size:13px">Sin datos aun.</p>';
+      return;
+    }
+    renderModal(data.resumen);
+  });
+}
+
+function renderModal(r) {
+  var dims   = ['Autoconciencia','Autogestion','Conciencia Social','Gestion de Relaciones'];
+  var vals   = [r.prom_D1, r.prom_D2, r.prom_D3, r.prom_D4].map(function(v){ return parseFloat(v)||0; });
+  var maxIdx = vals.indexOf(Math.max.apply(null,vals));
+  var minIdx = vals.indexOf(Math.min.apply(null,vals));
+  var niveles = [{key:'prom_superior',lbl:'Superior'},{key:'prom_par',lbl:'Par'},{key:'prom_subalterno',lbl:'Subalterno'},{key:'prom_externo',lbl:'Externo'}];
+  var html = '<div class="modal-stats">';
+  html += '<div class="modal-stat"><div class="val">' + (parseFloat(r.prom_general)||0).toFixed(1) + '</div><div class="lbl">Promedio general</div></div>';
+  html += '<div class="modal-stat"><div class="val">' + r.n_evaluadores + '</div><div class="lbl">Evaluadores</div></div>';
+  html += '<div class="modal-stat"><div class="val sm">' + dims[maxIdx] + '</div><div class="lbl">Mas alta - ' + vals[maxIdx].toFixed(1) + '</div></div>';
+  html += '<div class="modal-stat"><div class="val sm">' + dims[minIdx] + '</div><div class="lbl">Desarrollo - ' + vals[minIdx].toFixed(1) + '</div></div>';
+  html += '</div><div class="dim-bars">';
+  dims.forEach(function(d,i){
+    var pct = Math.round((vals[i]/5)*100);
+    html += '<div class="dim-bar-row"><div class="dim-bar-label">' + d + '</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:' + pct + '%"></div></div><div class="dim-bar-val">' + vals[i].toFixed(1) + '</div></div>';
+  });
+  html += '</div><div class="por-nivel"><div class="nivel-title">Por nivel de relacion</div><div class="nivel-grid">';
+  niveles.forEach(function(n){
+    var v = parseFloat(r[n.key]);
+    var display = isNaN(v)||v===0 ? '<span class="nval empty">Sin datos</span>' : '<span class="nval">' + v.toFixed(1) + '</span>';
+    html += '<div class="nivel-item"><span class="nlbl">' + n.lbl + '</span>' + display + '</div>';
+  });
+  html += '</div></div><div class="modal-radar"><canvas id="modal-radar-canvas" role="img" aria-label="Grafica radial IE"></canvas></div>';
+  document.getElementById('modal-body').innerHTML = html;
+  radarChart = new Chart(document.getElementById('modal-radar-canvas'), {
+    type:'radar',
+    data:{
+      labels:dims,
+      datasets:[
+        {label:'Referencia',data:[5,5,5,5],borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.08)',borderWidth:1.5,borderDash:[4,4],pointRadius:0},
+        {label:'Promedio',data:vals,borderColor:'#1a2744',backgroundColor:'rgba(26,39,68,0.15)',borderWidth:2.5,pointBackgroundColor:'#1a2744',pointRadius:5}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.r.toFixed(1);}}}},scales:{r:{min:0,max:5,ticks:{stepSize:1,font:{size:10},color:'#888',backdropColor:'transparent'},pointLabels:{font:{size:11},color:'#1a2744'},grid:{color:'rgba(0,0,0,0.08)'},angleLines:{color:'rgba(0,0,0,0.08)'}}}}
+  });
+}
+
+function cerrarModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+  if (radarChart) { radarChart.destroy(); radarChart = null; }
+}
+function cerrarModalClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) cerrarModal();
+}
+
+function registrarLider() {
+  var nombre  = document.getElementById('inp-nombre').value.trim();
+  var email   = document.getElementById('inp-email').value.trim();
+  var empresa = document.getElementById('inp-empresa').value.trim();
+  var msg     = document.getElementById('msg-registro');
+  if (!nombre || !email) { mostrarMsg(msg,'Complete nombre y correo.','err'); return; }
+  if (!email.includes('@')) { mostrarMsg(msg,'Correo no valido.','err'); return; }
+  var btn = document.getElementById('btn-registrar');
+  btn.disabled = true; btn.textContent = 'Registrando...';
+  jsonp('action=crearLider&nombre=' + encodeURIComponent(nombre) + '&email=' + encodeURIComponent(email) + '&empresa=' + encodeURIComponent(empresa), function(data) {
+    btn.disabled = false; btn.textContent = 'Registrar lider';
+    if (data && data.ok) {
+      mostrarMsg(msg,'Lider registrado: ' + data.lider_id,'ok');
+      document.getElementById('inp-nombre').value = '';
+      document.getElementById('inp-email').value  = '';
+      document.getElementById('inp-empresa').value = '';
+      cargarLideres();
+    } else {
+      mostrarMsg(msg,'Error: ' + (data ? data.error : 'sin conexion'),'err');
+    }
+  });
+}
+
+function mostrarMsg(el, txt, tipo) {
+  el.textContent = txt; el.className = 'msg ' + tipo; el.style.display = 'block';
+  setTimeout(function(){ el.style.display = 'none'; }, 5000);
+}
+function mostrarErrorWrap(txt) {
+  document.getElementById('lideres-wrap').innerHTML = '<div class="loading-wrap"><p style="color:#993C1D">' + txt + '</p></div>';
+}
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escData(s){ return String(s).replace(/"/g,'&quot;'); }
+function escAttr(s){ return String(s).replace(/'/g,'&#39;').replace(/"/g,'&quot;'); }
+</script>
+</body>
+</html>
