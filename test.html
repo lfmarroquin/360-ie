@@ -3,26 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Test de Diagnostico · EQUILIBRIUM</title>
+<title>Test de Diagnóstico · EQUILIBRIUM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#1a2744;--gold:#C9A84C;--gold-light:#F5E6C0;--bg:#F7F8FA;--white:#ffffff;--text:#1a2744;--text-soft:#5a6580;--border:#e2e6ef;--radius:14px;--shadow:0 2px 16px rgba(26,39,68,0.09)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-
-/* HEADER */
 .header{background:var(--navy);padding:18px 24px;text-align:center}
 .eq-brand{margin-bottom:4px}
 .eq-text{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:22px;letter-spacing:6px;color:#ffffff}
 .eq-gold{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:22px;letter-spacing:6px;color:var(--gold)}
 .header-sub{font-size:12px;color:rgba(255,255,255,0.55);letter-spacing:.5px}
-
-/* SCREENS */
 .screen{display:none;min-height:calc(100vh - 72px)}
 .screen.active{display:block}
-
-/* WELCOME */
 .welcome-wrap{max-width:540px;margin:0 auto;padding:32px 20px}
 .welcome-wrap h2{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:10px}
 .welcome-wrap .intro{font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:24px}
@@ -30,8 +24,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dim-chip{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;border-left:3px solid var(--gold)}
 .dim-chip .dc-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px}
 .dim-chip .dc-def{font-size:11px;color:var(--text-soft);line-height:1.4}
-
-/* FORM */
 .form-group{margin-bottom:14px}
 .form-group label{font-size:12px;font-weight:500;color:var(--text-soft);display:block;margin-bottom:5px}
 .form-group input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--border);font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border .15s}
@@ -39,8 +31,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-primary{width:100%;padding:15px;border-radius:var(--radius);border:none;background:var(--navy);color:var(--white);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:8px}
 .btn-primary:hover{background:#253660}
 .btn-primary:disabled{background:var(--border);color:var(--text-soft);cursor:not-allowed}
-
-/* PROGRESS */
 .progress-wrap{padding:12px 20px;background:var(--white);border-bottom:0.5px solid var(--border);position:sticky;top:0;z-index:10}
 .progress-top{display:flex;justify-content:space-between;font-size:12px;color:var(--text-soft);margin-bottom:6px}
 .pbar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
@@ -49,8 +39,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dim-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .3s}
 .dim-dot.active{background:var(--gold)}
 .dim-dot.done{background:var(--navy)}
-
-/* QUESTION */
 .question-wrap{max-width:600px;margin:0 auto;padding:28px 20px 100px}
 .q-dim-badge{display:inline-block;font-size:11px;font-weight:600;color:var(--gold);background:rgba(201,168,76,0.12);border-radius:20px;padding:4px 12px;margin-bottom:14px;letter-spacing:.3px}
 .q-type-badge{display:inline-block;font-size:10px;color:var(--text-soft);background:var(--bg);border:0.5px solid var(--border);border-radius:20px;padding:3px 10px;margin-left:6px}
@@ -65,21 +53,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .scale-opt.selected .opt-num{background:var(--navy);border-color:var(--navy);color:var(--white)}
 .scale-opt .opt-label{font-size:13px;color:var(--text-soft)}
 .scale-opt.selected .opt-label{color:var(--navy);font-weight:500}
-
-/* NAV */
 .nav-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:0.5px solid var(--border);padding:12px 20px;display:flex;gap:10px}
 .btn-nav{flex:1;padding:13px;border-radius:var(--radius);border:1.5px solid var(--border);font-size:14px;font-weight:600;cursor:pointer;background:var(--white);color:var(--text-soft);transition:all .15s}
 .btn-nav:hover{border-color:var(--navy);color:var(--navy)}
 .btn-nav.primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .btn-nav.primary:hover{background:#253660}
 .btn-nav.primary:disabled{background:var(--border);border-color:var(--border);color:var(--text-soft);cursor:not-allowed}
-
-/* SENDING */
 .sending-wrap{text-align:center;padding:80px 20px}
 .spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* RESULTS */
 .results-wrap{max-width:620px;margin:0 auto;padding:28px 20px 40px}
 .results-hero{background:var(--navy);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .results-hero .rh-name{color:var(--white);font-size:18px;font-weight:700;margin-bottom:3px}
@@ -91,7 +73,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .section-title{font-size:12px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
 .card{background:var(--white);border-radius:var(--radius);border:0.5px solid var(--border);padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow)}
 .dim-result-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.drl-name{font-size:13px;color:var(--text-soft);width:140px;flex-shrink:0}
+.drl-name{font-size:13px;color:var(--text-soft);width:160px;flex-shrink:0}
 .drl-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
 .drl-fill{height:100%;border-radius:4px;transition:width .6s}
 .fill-high{background:#1D9E75}
@@ -122,7 +104,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cta-card p{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:20px;margin-top:8px}
 .btn-cta{display:inline-block;padding:14px 32px;border-radius:var(--radius);background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;cursor:pointer;border:none;text-decoration:none;transition:background .15s}
 .btn-cta:hover{background:#b8943d}
-
+.btn-pdf{display:block;width:100%;padding:13px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--white);color:var(--text-soft);font-size:14px;font-weight:600;cursor:pointer;text-align:center;margin-bottom:10px;transition:all .15s}
+.btn-pdf:hover{border-color:var(--navy);color:var(--navy)}
+@media print{
+  .header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .results-hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cta-card{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .highlight-box{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .btn-pdf{display:none}
+  .btn-cta{display:none}
+  body{background:white}
+  .results-wrap{padding:0}
+  @page{size:A4;margin:1.5cm}
+}
 @media(max-width:480px){
   .highlight-grid{grid-template-columns:1fr}
   .results-hero{flex-direction:column}
@@ -136,30 +130,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="eq-brand">
     <span class="eq-text">EQUILI</span><span class="eq-gold">BRIUM</span>
   </div>
-  <div class="header-sub">TEST DE DIAGNOSTICO · INTELIGENCIA EMOCIONAL</div>
+  <div class="header-sub">TEST DE DIAGNÓSTICO · INTELIGENCIA EMOCIONAL</div>
 </div>
 
 <!-- BIENVENIDA -->
 <div id="screen-welcome" class="screen active">
   <div class="welcome-wrap">
     <h2>Descubre tu perfil de Inteligencia Emocional</h2>
-    <p class="intro">Este test de diagnostico te tomara aproximadamente <strong>10 minutos</strong>. A traves de 32 situaciones y afirmaciones, exploraras tu nivel actual en las 4 dimensiones clave de la inteligencia emocional para lideres.</p>
+    <p class="intro">Este test de diagnóstico te tomará aproximadamente <strong>10 minutos</strong>. A través de 32 situaciones y afirmaciones, explorarás tu nivel actual en las 4 dimensiones clave de la inteligencia emocional para líderes.</p>
     <div class="dims-preview">
       <div class="dim-chip"><div class="dc-name">Autoconciencia</div><div class="dc-def">Reconocer tus propias emociones y su impacto</div></div>
-      <div class="dim-chip"><div class="dc-name">Autogestion</div><div class="dc-def">Gestionar tus emociones e impulsos</div></div>
-      <div class="dim-chip"><div class="dc-name">Conciencia Social</div><div class="dc-def">Percibir lo que ocurre en los demas</div></div>
-      <div class="dim-chip"><div class="dc-name">Gestion de Relaciones</div><div class="dc-def">Actuar conscientemente en tus relaciones</div></div>
+      <div class="dim-chip"><div class="dc-name">Autogestión</div><div class="dc-def">Gestionar tus emociones e impulsos</div></div>
+      <div class="dim-chip"><div class="dc-name">Conciencia Social</div><div class="dc-def">Percibir lo que ocurre en los demás</div></div>
+      <div class="dim-chip"><div class="dc-name">Gestión de Relaciones</div><div class="dc-def">Actuar conscientemente en tus relaciones</div></div>
     </div>
     <div class="form-group"><label>Nombre completo *</label><input type="text" id="inp-nombre" placeholder="Tu nombre"></div>
-    <div class="form-group"><label>Correo electronico *</label><input type="email" id="inp-email" placeholder="tu@correo.com"></div>
+    <div class="form-group"><label>Correo electrónico *</label><input type="email" id="inp-email" placeholder="tu@correo.com"></div>
     <div class="form-group"><label>Empresa *</label><input type="text" id="inp-empresa" placeholder="Empresa donde trabajas"></div>
-    <button class="btn-primary" id="btn-iniciar" onclick="iniciarTest()">Comenzar diagnostico →</button>
+    <button class="btn-primary" id="btn-iniciar" onclick="iniciarTest()">Comenzar diagnóstico →</button>
   </div>
 </div>
 
 <!-- CARGANDO -->
 <div id="screen-loading" class="screen">
-  <div class="sending-wrap"><div class="spinner"></div><p style="color:var(--text-soft);font-size:14px">Preparando tu diagnostico...</p></div>
+  <div class="sending-wrap"><div class="spinner"></div><p style="color:var(--text-soft);font-size:14px">Preparando tu diagnóstico...</p></div>
 </div>
 
 <!-- TEST -->
@@ -189,7 +183,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="sending-wrap"><div class="spinner"></div><p style="color:var(--text-soft);font-size:14px">Calculando tu perfil...</p></div>
 </div>
 
-
 <!-- RESULTADOS -->
 <div id="screen-results" class="screen">
   <div class="results-wrap" id="results-content"></div>
@@ -198,18 +191,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 var SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbzJ5lxZoHzDOjdQ4rYdSehmNQ6f6BA8qo30aiQGbE_oI756hHXk2MVfqqOkA6Pna3zF/exec';
-var LANDING_URL = 'https://lfmarroquin.github.io/equilibrium/';
+var LANDING_URL = 'PEGA_AQUI_TU_LANDING_URL';
 
-var cbCount    = 0;
+var cbCount     = 0;
 var dimensiones = [];
 var scores      = [];
 var qActual     = 0;
 var totalQ      = 32;
 var userData    = {};
 var radarChart  = null;
-
-// Items planos para navegacion lineal
-var allItems = [];
+var allItems    = [];
 
 function api(params, callback) {
   var cbName = 'cb_' + (++cbCount) + '_' + Date.now();
@@ -245,7 +236,7 @@ function iniciarTest() {
   var email   = document.getElementById('inp-email').value.trim();
   var empresa = document.getElementById('inp-empresa').value.trim();
   if (!nombre || !email || !empresa) { alert('Por favor completa todos los campos.'); return; }
-  if (!email.includes('@')) { alert('El correo no es valido.'); return; }
+  if (!email.includes('@')) { alert('El correo no es válido.'); return; }
   userData = { nombre: nombre, email: email, empresa: empresa };
   showScreen('loading');
   api('action=getTestItems', function(data) {
@@ -256,7 +247,6 @@ function iniciarTest() {
     }
     dimensiones = data.dimensiones;
     scores = dimensiones.map(function(){ return {}; });
-    // Flatten items
     allItems = [];
     dimensiones.forEach(function(dim, di) {
       dim.items.forEach(function(item, bi) {
@@ -275,13 +265,12 @@ function renderQuestion(idx) {
   var dimIdx = item.dimIdx;
   var biIdx  = item.itemIdx;
   var sel    = scores[dimIdx][biIdx] || 0;
-  var pct    = Math.round(((idx) / totalQ) * 100);
+  var pct    = Math.round((idx / totalQ) * 100);
 
   document.getElementById('prog-label').textContent = 'Pregunta ' + (idx+1) + ' de ' + totalQ;
   document.getElementById('prog-pct').textContent   = pct + '%';
   document.getElementById('pfill').style.width      = pct + '%';
 
-  // Dim dots
   for (var d = 0; d < 4; d++) {
     var dot = document.getElementById('dot-' + d);
     dot.className = 'dim-dot';
@@ -289,26 +278,25 @@ function renderQuestion(idx) {
     else if (d === dimIdx) dot.classList.add('active');
   }
 
-  // Nav buttons
   document.getElementById('btn-prev').style.display = idx === 0 ? 'none' : 'block';
   var btnNext = document.getElementById('btn-next');
   btnNext.disabled = sel === 0;
   btnNext.textContent = idx === totalQ - 1 ? 'Ver mis resultados →' : 'Siguiente →';
 
-  // Detect if narrative (contains '?') or affirmation
   var texto  = item.texto;
-  var isNarr = texto.indexOf('?') !== -1 && texto.indexOf('.') < texto.indexOf('?');
+  var isNarr = texto.indexOf('?') !== -1;
   var html   = '';
   html += '<div class="q-dim-badge">' + item.dimNombre + '</div>';
-  html += '<span class="q-type-badge">' + (isNarr ? 'Situacion' : 'Afirmacion') + '</span>';
+  html += '<span class="q-type-badge">' + (isNarr ? 'Situación' : 'Afirmación') + '</span>';
 
   if (isNarr) {
-    var parts  = texto.split('?');
-    var narr   = parts.slice(0, parts.length - 1).join('?');
-    var ask    = parts[parts.length - 1].trim();
-    if (!ask) { ask = narr.split('.').pop().trim(); narr = narr.split('.').slice(0,-1).join('.'); }
-    html += '<p class="q-narrative">' + narr.trim() + '...</p>';
-    html += '<p class="q-ask">¿' + (ask.charAt(0)==='C'?ask:'Con que frecuencia '+ask.toLowerCase()) + '?</p>';
+    var qMark  = texto.lastIndexOf('?');
+    var before = texto.substring(0, qMark);
+    var lastDot = before.lastIndexOf('.');
+    var narr   = lastDot > 0 ? before.substring(0, lastDot + 1) : before;
+    var ask    = before.substring(lastDot + 1).trim();
+    html += '<p class="q-narrative">' + narr.trim() + '</p>';
+    html += '<p class="q-ask">' + ask + '?</p>';
   } else {
     html += '<p class="q-text">' + texto + '</p>';
   }
@@ -341,9 +329,7 @@ function selectOpt(dimIdx, biIdx, val, idx) {
 
 function navNext() {
   var item   = allItems[qActual];
-  var dimIdx = item.dimIdx;
-  var biIdx  = item.itemIdx;
-  if (!scores[dimIdx][biIdx]) return;
+  if (!scores[item.dimIdx][item.itemIdx]) return;
   if (qActual < totalQ - 1) {
     qActual++;
     renderQuestion(qActual);
@@ -353,10 +339,7 @@ function navNext() {
 }
 
 function navPrev() {
-  if (qActual > 0) {
-    qActual--;
-    renderQuestion(qActual);
-  }
+  if (qActual > 0) { qActual--; renderQuestion(qActual); }
 }
 
 function enviarTest() {
@@ -387,24 +370,24 @@ function interpretacion(dimNombre, v) {
   var nivel = v >= 4 ? 'alto' : v >= 3 ? 'medio' : 'bajo';
   var textos = {
     'Autoconciencia': {
-      alto: 'Tienes una solida capacidad para reconocer tus emociones y su impacto. Este nivel de autoconciencia es una fortaleza fundamental que potencia todas tus otras habilidades de liderazgo.',
-      medio: 'Reconoces tus emociones en situaciones claras, pero en momentos de alta presion puede costarte identificar lo que sientes antes de reaccionar. Hay espacio para profundizar.',
-      bajo: 'La autoconciencia es el punto de partida de la inteligencia emocional. Desarrollarla te permitira tomar decisiones mas conscientes y gestionar mejor tu impacto en el equipo.'
+      alto:  'Tienes una sólida capacidad para reconocer tus emociones y su impacto. Este nivel de autoconciencia es una fortaleza fundamental que potencia todas tus otras habilidades de liderazgo.',
+      medio: 'Reconoces tus emociones en situaciones claras, pero en momentos de alta presión puede costarte identificar lo que sientes antes de reaccionar. Hay espacio para profundizar.',
+      bajo:  'La autoconciencia es el punto de partida de la inteligencia emocional. Desarrollarla te permitirá tomar decisiones más conscientes y gestionar mejor tu impacto en el equipo.'
     },
-    'Autogestion': {
-      alto: 'Gestionas tus emociones e impulsos con efectividad, incluso bajo presion. Esto te permite mantener coherencia y confianza como lider en situaciones dificiles.',
-      medio: 'En situaciones cotidianas manejas bien tus emociones, pero bajo presion intensa o cambios inesperados puede costarte mantener el equilibrio. Vale la pena fortalecer esta area.',
-      bajo: 'La autogestion es clave para liderar con coherencia. Sin ella, las emociones pueden dirigir tus decisiones en lugar de tus valores. Es un area prioritaria de desarrollo.'
+    'Autogestión': {
+      alto:  'Gestionas tus emociones e impulsos con efectividad, incluso bajo presión. Esto te permite mantener coherencia y confianza como líder en situaciones difíciles.',
+      medio: 'En situaciones cotidianas manejas bien tus emociones, pero bajo presión intensa o cambios inesperados puede costarte mantener el equilibrio. Vale la pena fortalecer esta área.',
+      bajo:  'La autogestión es clave para liderar con coherencia. Sin ella, las emociones pueden dirigir tus decisiones en lugar de tus valores. Es un área prioritaria de desarrollo.'
     },
     'Conciencia Social': {
-      alto: 'Tienes una capacidad desarrollada para leer el estado emocional de las personas de tu entorno. Esto te permite conectar, motivar y generar confianza de forma natural.',
-      medio: 'Percibes lo que ocurre en los demas en contextos donde la senal es clara, pero en situaciones sutiles o con personas muy distintas a ti puede costar mas. Hay oportunidad aqui.',
-      bajo: 'Desarrollar la conciencia social te permitira conectar mejor con tu equipo, anticipar conflictos y liderar con mayor empatia. Es una de las competencias mas valoradas en lideres efectivos.'
+      alto:  'Tienes una capacidad desarrollada para leer el estado emocional de las personas de tu entorno. Esto te permite conectar, motivar y generar confianza de forma natural.',
+      medio: 'Percibes lo que ocurre en los demás en contextos donde la señal es clara, pero en situaciones sutiles puede costarte más. Hay oportunidad aquí.',
+      bajo:  'Desarrollar la conciencia social te permitirá conectar mejor con tu equipo, anticipar conflictos y liderar con mayor empatía. Es una de las competencias más valoradas en líderes efectivos.'
     },
-    'Gestion de las Relaciones': {
-      alto: 'Actuas de forma consciente y deliberada en tus relaciones. Sabes cuando avanzar, cuando ceder y cuando poner limites — lo que genera relaciones de alta confianza.',
-      medio: 'En relaciones donde te sientes comodo actuas bien, pero en situaciones disfuncionales o con personas dificiles puede costarte tomar accion. Hay espacio para crecer.',
-      bajo: 'La gestion de relaciones es donde la inteligencia emocional se convierte en resultados concretos. Fortalecer esta dimension transformara tu capacidad de liderar equipos y conversaciones dificiles.'
+    'Gestión de las Relaciones': {
+      alto:  'Actúas de forma consciente y deliberada en tus relaciones. Sabes cuándo avanzar, cuándo ceder y cuándo poner límites — lo que genera relaciones de alta confianza.',
+      medio: 'En relaciones donde te sientes cómodo actúas bien, pero en situaciones disfuncionales o con personas difíciles puede costarte tomar acción. Hay espacio para crecer.',
+      bajo:  'La gestión de relaciones es donde la inteligencia emocional se convierte en resultados concretos. Fortalecer esta dimensión transformará tu capacidad de liderar equipos y conversaciones difíciles.'
     }
   };
   var key = dimNombre.trim();
@@ -413,8 +396,8 @@ function interpretacion(dimNombre, v) {
 }
 
 function renderResultados(data) {
-  var dims  = ['Autoconciencia','Autogestion','Conciencia Social','Gestion de las Relaciones'];
-  var vals  = [data.prom_D1, data.prom_D2, data.prom_D3, data.prom_D4].map(function(v){ return parseFloat(v)||0; });
+  var dims   = ['Autoconciencia','Autogestión','Conciencia Social','Gestión de las Relaciones'];
+  var vals   = [data.prom_D1, data.prom_D2, data.prom_D3, data.prom_D4].map(function(v){ return parseFloat(v)||0; });
   var maxIdx = vals.indexOf(Math.max.apply(null,vals));
   var minIdx = vals.indexOf(Math.min.apply(null,vals));
 
@@ -429,13 +412,13 @@ function renderResultados(data) {
   // HIGHLIGHTS
   html += '<div class="highlight-grid">';
   html += '<div class="highlight-box strength"><div class="hb-label">Tu fortaleza</div><div class="hb-dim">' + dims[maxIdx] + '</div><div class="hb-score">' + vals[maxIdx].toFixed(1) + ' / 5.0</div></div>';
-  html += '<div class="highlight-box develop"><div class="hb-label">Area de desarrollo</div><div class="hb-dim">' + dims[minIdx] + '</div><div class="hb-score">' + vals[minIdx].toFixed(1) + ' / 5.0</div></div>';
+  html += '<div class="highlight-box develop"><div class="hb-label">Área de desarrollo</div><div class="hb-dim">' + dims[minIdx] + '</div><div class="hb-score">' + vals[minIdx].toFixed(1) + ' / 5.0</div></div>';
   html += '</div>';
 
   // RADAR
   html += '<div class="card">';
   html += '<div class="section-title">Tu perfil de IE</div>';
-  html += '<div class="radar-wrap"><canvas id="radar-canvas" role="img" aria-label="Grafica radial con tu perfil de inteligencia emocional"></canvas></div>';
+  html += '<div class="radar-wrap"><canvas id="radar-canvas" role="img" aria-label="Gráfica radial con tu perfil de inteligencia emocional"></canvas></div>';
   html += '<div style="margin-top:20px">';
   dims.forEach(function(d,i){
     var pct = Math.round((vals[i]/5)*100);
@@ -444,9 +427,9 @@ function renderResultados(data) {
   html += '</div></div>';
 
   // INTERPRETACION
-  html += '<div class="card"><div class="section-title">Que significa tu resultado</div>';
+  html += '<div class="card"><div class="section-title">Qué significa tu resultado</div>';
   dims.forEach(function(d,i){
-    var nivel = vals[i]>=4?'Alto':vals[i]>=3?'En desarrollo':'Area de oportunidad';
+    var nivel = vals[i]>=4?'Alto':vals[i]>=3?'En desarrollo':'Área de oportunidad';
     html += '<div class="interp-item">';
     html += '<div class="interp-dim">'+d+'</div>';
     html += '<div class="interp-score '+scoreColor(vals[i])+'">'+vals[i].toFixed(1)+' / 5.0 &nbsp;·&nbsp; '+nivel+'</div>';
@@ -455,10 +438,13 @@ function renderResultados(data) {
   });
   html += '</div>';
 
+  // BOTÓN PDF
+  html += '<button class="btn-pdf" onclick="descargarPDF()">⬇ Descargar mis resultados en PDF</button>';
+
   // CTA
   html += '<div class="cta-card">';
   html += '<h3><span class="ct-eq">EQUILI</span><span class="ct-gold">BRIUM</span></h3>';
-  html += '<p>Este diagnostico es el primer paso. El programa EQUILIBRIUM te acompana a desarrollar tu inteligencia emocional con un proceso estructurado, personalizado y medible.</p>';
+  html += '<p>Este diagnóstico es el primer paso. El programa EQUILIBRIUM te acompaña a desarrollar tu inteligencia emocional con un proceso estructurado, personalizado y medible.</p>';
   html += '<button class="btn-cta" onclick="irALanding()">Quiero desarrollar mi IE →</button>';
   html += '</div>';
 
@@ -480,6 +466,10 @@ function renderResultados(data) {
       scales:{r:{min:0,max:5,ticks:{stepSize:1,font:{size:10},color:'#888',backdropColor:'transparent'},pointLabels:{font:{size:11},color:'#1a2744'},grid:{color:'rgba(0,0,0,0.08)'},angleLines:{color:'rgba(0,0,0,0.08)'}}}
     }
   });
+}
+
+function descargarPDF() {
+  window.print();
 }
 
 function irALanding() {
