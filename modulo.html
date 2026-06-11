@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EQUILIBRIUM — Módulo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #1a2744;
+      --navy-dark: #111b30;
+      --gold:      #C9A84C;
+      --gold-muted:#9a7e38;
+      --white:     #ffffff;
+      --text-main: #1a2744;
+      --text-sec:  #5a6a8a;
+      --bg:        #f4f6fb;
+      --bg-card:   #ffffff;
+      --border:    #e2e8f0;
+      --header-h:  56px;
+    }
+
+    html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); }
+
+    /* HEADER */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h); background: var(--navy);
+      display: flex; align-items: center; padding: 0 20px; gap: 14px; z-index: 100;
+    }
+    .logo-block { display: flex; align-items: center; gap: 10px; flex: 1; }
+    .logo-mark { width: 34px; height: 34px; border: 1.5px solid var(--gold); border-radius: 7px; display: flex; align-items: center; justify-content: center; }
+    .logo-mark svg { width: 20px; height: 20px; }
+    .logo-eq { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--gold); letter-spacing: 0.08em; }
+    .logo-sub { font-size: 9px; color: rgba(255,255,255,0.45); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-top: 2px; }
+
+    .btn-back {
+      display: flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.65); font-size: 13px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; transition: color 0.15s;
+      text-decoration: none;
+    }
+    .btn-back:hover { color: white; }
+    .btn-back i { font-size: 17px; }
+
+    /* MAIN */
+    .main {
+      padding-top: var(--header-h);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      grid-template-rows: auto 1fr;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 28px;
+      padding-right: 28px;
+      padding-bottom: 40px;
+    }
+
+    /* COLUMNA IZQUIERDA */
+    .col-left { padding-top: 28px; padding-right: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+    /* breadcrumb */
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sec); }
+    .breadcrumb a { color: var(--gold-muted); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb i { font-size: 13px; }
+
+    /* módulo header */
+    .mod-header {}
+    .mod-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-muted); margin-bottom: 6px; }
+    .mod-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--text-main); line-height: 1.25; margin-bottom: 10px; }
+    .mod-desc { font-size: 14px; color: var(--text-sec); line-height: 1.65; }
+    .mod-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+    .meta-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sec); background: var(--bg); border: 0.5px solid var(--border); border-radius: 20px; padding: 4px 12px; }
+    .meta-pill i { font-size: 14px; }
+
+    /* REPRODUCTOR VIMEO */
+    .video-section {}
+    .video-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-sec); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .video-label i { font-size: 15px; color: var(--gold-muted); }
+
+    .video-wrapper {
+      position: relative; width: 100%; padding-bottom: 56.25%;
+      background: var(--navy-dark); border-radius: 12px; overflow: hidden;
+      border: 0.5px solid var(--border);
+    }
+    .video-wrapper iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+    .video-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; color: rgba(255,255,255,0.4); font-size: 13px;
+    }
+    .video-placeholder i { font-size: 40px; color: rgba(201,168,76,0.4); }
+
+    /* selector de videos */
+    .video-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .video-tab {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 500;
+      cursor: pointer; border: 0.5px solid var(--border);
+      background: var(--bg-card); color: var(--text-sec);
+      transition: all 0.15s; font-family: 'Inter', sans-serif;
+    }
+    .video-tab:hover { border-color: var(--gold); color: var(--text-main); }
+    .video-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+    .video-tab i { font-size: 14px; }
+
+    /* marcar completado */
+    .completado-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg-card); border: 0.5px solid var(--border);
+      border-radius: 10px; padding: 14px 18px; gap: 16px;
+    }
+    .completado-info { font-size: 13px; color: var(--text-sec); }
+    .completado-info strong { color: var(--text-main); display: block; margin-bottom: 2px; font-size: 14px; }
+
+    .btn-completar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px; background: var(--gold); color: var(--navy);
+      border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .btn-completar:hover { background: #e8c97a; }
+    .btn-completar.done { background: #e8f5ef; color: #0F6E56; cursor: default; }
+    .btn-completar i { font-size: 16px; }
+
+    /* COLUMNA DERECHA */
+    .col-right { padding-top: 28px; display: flex; flex-direction: column; gap: 16px; border-left: 0.5px solid var(--border); padding-left: 24px; }
+
+    .panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-sec); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .panel-title i { font-size: 15px; color: var(--gold-muted); }
+
+    /* tarjetas de recursos */
+    .recurso-card {
+      background: var(--bg-card); border: 0.5px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      display: flex; align-items: flex-start; gap: 12px;
+      cursor: pointer; transition: all 0.15s; text-decoration: none; color: inherit;
+    }
+    .recurso-card:hover { border-color: var(--gold); box-shadow: 0 2px 12px rgba(201,168,76,0.1); }
+
+    .recurso-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .ri-pdf   { background: rgba(200,50,50,0.1);  color: #A32D2D; }
+    .ri-video { background: rgba(24,95,165,0.12); color: #185FA5; }
+    .ri-quiz  { background: rgba(201,168,76,0.15);color: var(--gold-muted); }
+
+    .recurso-info {}
+    .recurso-title { font-size: 13px; font-weight: 500; color: var(--text-main); line-height: 1.35; margin-bottom: 3px; }
+    .recurso-meta  { font-size: 11px; color: var(--text-sec); }
+
+    /* nav módulos */
+    .nav-modulos { display: flex; gap: 10px; margin-top: auto; padding-top: 16px; border-top: 0.5px solid var(--border); }
+    .btn-nav {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none;
+      border: 0.5px solid var(--border); background: var(--bg-card); color: var(--text-sec);
+      transition: all 0.15s;
+    }
+    .btn-nav:hover { border-color: var(--navy); color: var(--navy); }
+    .btn-nav i { font-size: 15px; }
+
+    /* LOADING */
+    .loading-overlay { position: fixed; inset: 0; background: var(--navy-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; z-index: 1000; }
+    .loading-overlay.hidden { display: none; }
+    .spinner { width: 32px; height: 32px; border: 2px solid rgba(201,168,76,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-txt { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+    /* PDF embed */
+    .pdf-section { display: none; flex-direction: column; gap: 10px; }
+    .pdf-section.visible { display: flex; }
+    .pdf-frame { width: 100%; height: 500px; border: 0.5px solid var(--border); border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-txt">Cargando módulo...</div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-block">
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="16" stroke="#C9A84C" stroke-width="1.5"/>
+        <line x1="20" y1="4" x2="20" y2="36" stroke="#C9A84C" stroke-width="1.5"/>
+        <path d="M20 4 C11 12 11 28 20 36" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <span class="logo-eq">EQUILIBRIUM</span>
+      <span class="logo-sub">Academia Virtual</span>
+    </div>
+  </div>
+  <a class="btn-back" href="portal.html">
+    <i class="ti ti-arrow-left"></i> Volver al portal
+  </a>
+</header>
+
+<!-- MAIN GRID -->
+<div class="main" id="mainGrid" style="display:none">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="col-left">
+
+    <!-- breadcrumb -->
+    <div class="breadcrumb">
+      <a href="portal.html">Mis módulos</a>
+      <i class="ti ti-chevron-right"></i>
+      <span id="bcModulo">Módulo</span>
+    </div>
+
+    <!-- header del módulo -->
+    <div class="mod-header">
+      <div class="mod-tag" id="modTag"></div>
+      <div class="mod-title" id="modTitle">Cargando...</div>
+      <div class="mod-desc"  id="modDesc"></div>
+      <div class="mod-meta"  id="modMeta"></div>
+    </div>
+
+    <!-- VIDEO PRINCIPAL -->
+    <div class="video-section" id="videoSection" style="display:none">
+      <div class="video-label"><i class="ti ti-player-play"></i> Clase en video</div>
+      <div class="video-wrapper" id="videoWrapper">
+        <div class="video-placeholder" id="videoPlaceholder">
+          <i class="ti ti-player-play"></i>
+          Selecciona un video para reproducir
+        </div>
+      </div>
+      <div class="video-tabs" id="videoTabs"></div>
+    </div>
+
+    <!-- PDF EMBEBIDO -->
+    <div class="pdf-section" id="pdfSection">
+      <div class="video-label"><i class="ti ti-file-text"></i> <span id="pdfLabel">Documento</span></div>
+      <iframe class="pdf-frame" id="pdfFrame" src=""></iframe>
+    </div>
+
+    <!-- MARCAR COMPLETADO -->
+    <div class="completado-bar" id="completadoBar" style="display:none">
+      <div class="completado-info">
+        <strong>¿Terminaste este módulo?</strong>
+        Marca como completado para registrar tu avance en el programa.
+      </div>
+      <button class="btn-completar" id="btnCompletar" onclick="marcarCompletado()">
+        <i class="ti ti-circle-check"></i> Marcar completado
+      </button>
+    </div>
+
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="col-right">
+    <div>
+      <div class="panel-title"><i class="ti ti-paperclip"></i> Materiales del módulo</div>
+      <div id="recursosList" style="display:flex;flex-direction:column;gap:10px">
+        <!-- recursos dinámicos -->
+      </div>
+    </div>
+
+    <!-- navegación entre módulos -->
+    <div class="nav-modulos" id="navModulos"></div>
+  </div>
+
+</div>
+
+<!-- FIREBASE + LÓGICA -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyB1jm5zLE4qz6U6NWCwSCJot_MP0TjbI-M",
+    authDomain:        "equilibrium-academia-70e6f.firebaseapp.com",
+    projectId:         "equilibrium-academia-70e6f",
+    storageBucket:     "equilibrium-academia-70e6f.firebasestorage.app",
+    messagingSenderId: "432414897669",
+    appId:             "1:432414897669:web:4c817a7f128f9999f4ce6c"
+  };
+
+  const API = "https://script.google.com/macros/s/AKfycbz5FJOZxyoVzIAmimPojjgeasl_IiBRLtkJ8LTtq46Fglqjx-9zOvIIJHBpayoN1ruL/exec";
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  let estadoGlobal = { email: "", moduloId: null, modulos: [], progreso: [] };
+
+  // ── SESIÓN ──
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = "login.html"; return; }
+    estadoGlobal.email = user.email;
+
+    const params = new URLSearchParams(window.location.search);
+    estadoGlobal.moduloId = params.get("id");
+    if (!estadoGlobal.moduloId) { window.location.href = "portal.html"; return; }
+
+    await cargarModulo();
+    document.getElementById("loadingOverlay").classList.add("hidden");
+    document.getElementById("mainGrid").style.display = "grid";
+  });
+
+  // ── CARGAR MÓDULO ──
+  async function cargarModulo() {
+    const [modulos, recursos, progreso] = await Promise.all([
+      apiFetch("getModulos"),
+      apiFetch("getRecursos", { modulo_id: estadoGlobal.moduloId }),
+      apiFetch("getProgreso", { email: estadoGlobal.email })
+    ]);
+
+    estadoGlobal.modulos  = modulos  || [];
+    estadoGlobal.progreso = progreso || [];
+
+    const modulo = modulos.find(m => String(m.id) === String(estadoGlobal.moduloId));
+    if (!modulo) { window.location.href = "portal.html"; return; }
+
+    renderHeader(modulo);
+    renderRecursos(recursos);
+    renderNavModulos(modulos);
+    verificarCompletado();
+  }
+
+  // ── HEADER ──
+  function renderHeader(mod) {
+    document.title = `EQUILIBRIUM — ${mod.titulo}`;
+    document.getElementById("bcModulo").textContent  = mod.titulo;
+    document.getElementById("modTag").textContent    = mod.dimension || "";
+    document.getElementById("modTitle").textContent  = mod.titulo;
+    document.getElementById("modDesc").textContent   = mod.descripcion || "";
+
+    const meta = document.getElementById("modMeta");
+    if (mod.duracion_horas) {
+      meta.innerHTML = `<span class="meta-pill"><i class="ti ti-clock"></i> ${mod.duracion_horas} horas</span>`;
+    }
+  }
+
+  // ── RECURSOS ──
+  function renderRecursos(recursos) {
+    const lista   = document.getElementById("recursosList");
+    const videos  = recursos.filter(r => r.tipo === "video");
+    const pdfs    = recursos.filter(r => r.tipo === "pdf");
+    const quizzes = recursos.filter(r => r.tipo === "quiz");
+
+    lista.innerHTML = "";
+
+    // Videos
+    if (videos.length) {
+      document.getElementById("videoSection").style.display = "block";
+      const tabs = document.getElementById("videoTabs");
+      tabs.innerHTML = "";
+
+      videos.forEach((v, i) => {
+        // tab selector
+        if (videos.length > 1) {
+          const tab = document.createElement("button");
+          tab.className = "video-tab" + (i === 0 ? " active" : "");
+          tab.innerHTML = `<i class="ti ti-player-play"></i> ${v.titulo}`;
+          tab.onclick = () => {
+            document.querySelectorAll(".video-tab").forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            cargarVideo(v.url_o_id);
+          };
+          tabs.appendChild(tab);
+        }
+
+        // tarjeta en panel derecho
+        const card = document.createElement("div");
+        card.className = "recurso-card";
+        card.innerHTML = `
+          <div class="recurso-icon ri-video"><i class="ti ti-player-play"></i></div>
+          <div class="recurso-info">
+            <div class="recurso-title">${v.titulo}</div>
+            <div class="recurso-meta">Video${v.descripcion ? " · " + v.descripcion : ""}</div>
+          </div>`;
+        card.onclick = () => cargarVideo(v.url_o_id);
+        lista.appendChild(card);
+      });
+
+      // cargar primer video
+      cargarVideo(videos[0].url_o_id);
+    }
+
+    // PDFs
+    pdfs.forEach(p => {
+      const card = document.createElement("a");
+      card.className = "recurso-card";
+      card.target    = "_blank";
+      card.rel       = "noopener";
+
+      // Si es ID de Drive lo convertimos a URL de previsualización
+      const url = p.url_o_id.startsWith("http")
+        ? p.url_o_id
+        : `https://drive.google.com/file/d/${p.url_o_id}/preview`;
+
+      card.href = url.replace("/preview", "/view");
+      card.innerHTML = `
+        <div class="recurso-icon ri-pdf"><i class="ti ti-file-text"></i></div>
+        <div class="recurso-info">
+          <div class="recurso-title">${p.titulo}</div>
+          <div class="recurso-meta">PDF${p.descripcion ? " · " + p.descripcion : ""}</div>
+        </div>`;
+      lista.appendChild(card);
+    });
+
+    // Quizzes / Evaluaciones
+    quizzes.forEach(q => {
+      const card = document.createElement("a");
+      card.className = "recurso-card";
+      card.href      = q.url_o_id;
+      card.target    = "_blank";
+      card.innerHTML = `
+        <div class="recurso-icon ri-quiz"><i class="ti ti-checklist"></i></div>
+        <div class="recurso-info">
+          <div class="recurso-title">${q.titulo}</div>
+          <div class="recurso-meta">Evaluación${q.descripcion ? " · " + q.descripcion : ""}</div>
+        </div>`;
+      lista.appendChild(card);
+    });
+
+    if (!recursos.length) {
+      lista.innerHTML = `<div style="font-size:13px;color:var(--text-sec);padding:8px">No hay materiales publicados aún.</div>`;
+    }
+
+    // mostrar barra completar
+    document.getElementById("completadoBar").style.display = "flex";
+  }
+
+  // ── CARGAR VIDEO VIMEO ──
+  function cargarVideo(vimeoId) {
+    const wrapper = document.getElementById("videoWrapper");
+    const id = vimeoId.toString().replace(/\D/g, ""); // solo números
+    wrapper.innerHTML = `<iframe
+      src="https://player.vimeo.com/video/${id}?color=C9A84C&title=0&byline=0&portrait=0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen>
+    </iframe>`;
+  }
+
+  // ── VERIFICAR COMPLETADO ──
+  function verificarCompletado() {
+    const yaCompletado = estadoGlobal.progreso.some(
+      p => String(p.modulo_id) === String(estadoGlobal.moduloId)
+    );
+    const btn = document.getElementById("btnCompletar");
+    if (yaCompletado) {
+      btn.classList.add("done");
+      btn.innerHTML = '<i class="ti ti-circle-check"></i> Módulo completado';
+      btn.disabled  = true;
+    }
+  }
+
+  // ── MARCAR COMPLETADO ──
+  window.marcarCompletado = async function() {
+    const btn = document.getElementById("btnCompletar");
+    btn.disabled  = true;
+    btn.innerHTML = '<i class="ti ti-loader"></i> Guardando...';
+
+    try {
+      await fetch(API, {
+        method: "POST",
+        body: JSON.stringify({
+          action:     "guardarProgreso",
+          email:      estadoGlobal.email,
+          modulo_id:  estadoGlobal.moduloId,
+          recurso_id: 0
+        })
+      });
+      btn.classList.add("done");
+      btn.innerHTML = '<i class="ti ti-circle-check"></i> Módulo completado';
+    } catch(e) {
+      btn.disabled  = false;
+      btn.innerHTML = '<i class="ti ti-circle-check"></i> Marcar completado';
+    }
+  };
+
+  // ── NAVEGACIÓN ENTRE MÓDULOS ──
+  function renderNavModulos(modulos) {
+    const nav = document.getElementById("navModulos");
+    const idx = modulos.findIndex(m => String(m.id) === String(estadoGlobal.moduloId));
+
+    nav.innerHTML = "";
+    if (idx > 0) {
+      const prev = modulos[idx - 1];
+      nav.innerHTML += `<a class="btn-nav" href="modulo.html?id=${prev.id}"><i class="ti ti-arrow-left"></i> Anterior</a>`;
+    }
+    if (idx < modulos.length - 1) {
+      const next = modulos[idx + 1];
+      nav.innerHTML += `<a class="btn-nav" href="modulo.html?id=${next.id}">Siguiente <i class="ti ti-arrow-right"></i></a>`;
+    }
+  }
+
+  // ── FETCH HELPER ──
+  async function apiFetch(action, params = {}) {
+    const qs = new URLSearchParams({ action, ...params }).toString();
+    const r  = await fetch(`${API}?${qs}`);
+    return r.json();
+  }
+</script>
+
+</body>
+</html>
